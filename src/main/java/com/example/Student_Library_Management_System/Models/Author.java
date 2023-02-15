@@ -19,10 +19,9 @@ public class Author {
     // this annotation we are writing in parent class :
     // part of bidirectional mapping
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
-    List<Book> booksWritten;
+    List<Book> booksWritten = new ArrayList<>();
 
     public Author() {
-        booksWritten = new ArrayList<>();
     }
 
     public int getId() {

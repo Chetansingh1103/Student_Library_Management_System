@@ -1,11 +1,15 @@
 package com.example.Student_Library_Management_System.Services;
 
+import com.example.Student_Library_Management_System.DTOs.StudentUpdateMobRequestDto;
 import com.example.Student_Library_Management_System.Enums.CardStatus;
 import com.example.Student_Library_Management_System.Models.Card;
 import com.example.Student_Library_Management_System.Models.Student;
 import com.example.Student_Library_Management_System.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -34,4 +38,51 @@ public class StudentService {
 
         return "Student and card added";
     }
+
+    public String findNameByEmail(String email){
+        Student student = studentRepository.findByEmail(email);
+
+        return  student.getName();
+    }
+
+    public String updateMobNo(StudentUpdateMobRequestDto studentUpdateMobRequestDto){
+
+        // Convert the DTO to entity : saved better
+        Student newStudent = new Student();
+        newStudent.setId(studentUpdateMobRequestDto.getId());
+        newStudent.setMobNo(studentUpdateMobRequestDto.getMobNo());
+
+
+        //first we will try to fetch originalData
+        Student originalStudent = studentRepository.findById(newStudent.getId()).get();
+
+        // we will keep the other properties as it is : and only change the required parameter
+
+        originalStudent.setMobNo(newStudent.getMobNo());
+
+        //always entity object being saved
+
+        studentRepository.save(newStudent);
+
+        return "student has been updates successfully";
+    }
+
+    public List<String> findByCountry(String country){
+        List<Student> studentList = studentRepository.findByCountry(country);
+        List<String> studentNames = new ArrayList<>();
+
+        for(Student student : studentList){
+            studentNames.add(student.getName());
+        }
+
+        return studentNames;
+    }
+
+
 }
+
+/*
+1. Existing functions with no definition.
+
+2. Existing
+ */

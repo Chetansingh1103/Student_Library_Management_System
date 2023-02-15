@@ -34,10 +34,12 @@ public class Card {
 
     // Card is parent with respect to book class
     @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
-    List<Book> bookIssued;
+    List<Book> bookIssued = new ArrayList<>();
+
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    List<Transaction> transactionList = new ArrayList<>();
 
     public Card() {
-        bookIssued = new ArrayList<>();
     }
 
     public int getId() {
@@ -78,5 +80,21 @@ public class Card {
 
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;
+    }
+
+    public List<Book> getBookIssued() {
+        return bookIssued;
+    }
+
+    public void setBookIssued(List<Book> bookIssued) {
+        this.bookIssued = bookIssued;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 }

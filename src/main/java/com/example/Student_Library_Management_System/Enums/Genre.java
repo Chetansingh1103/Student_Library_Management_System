@@ -10,5 +10,6 @@ public enum Genre {
     NON_FICTIONAL,
     DRAMA,
     MOTIVATIONAL,
-    MYSTERY
+    MYSTERY,
+    BIOGRAPHY
 }
